@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.Controller">
+    <center>
+        <AnchorPane>
+            <Label layoutX="12.0" layoutY="155.0" text="Кількість інтервалів розбиття:" />
+            <TextField fx:id="intervalsQuantity" layoutX="188.0" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Введіть кількість" text="10" />
+            <Label layoutX="12.0" layoutY="192.0" text="Кількість потоків виконання:" />
+            <TextField fx:id="threadsQuantity" layoutX="188.0" layoutY="188.0" prefWidth="200.0" promptText="Введіть кількість" text="1" />
+            <Button layoutX="294.0" layoutY="238.0" mnemonicParsing="false" onAction="#calculate" prefHeight="25.0" prefWidth="94.0" text="Порахувати" />
+            <Separator layoutY="277.0" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="400.0" />
+            <TextFlow fx:id="outputText" layoutX="16.0" layoutY="286.0" prefHeight="200.0" prefWidth="369.0" />
+            <ImageView fitHeight="71.0" fitWidth="228.0" layoutX="88.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@img/img.png" />
+            </ImageView>
+            <Label layoutX="84.0" layoutY="113.0" text="Розв'язати методом правих прямокутників" />
+        </AnchorPane>
+    </center>
+</BorderPane>

@@ -1,6 +1,7 @@
 package main.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import main.function.Function;
@@ -12,9 +13,11 @@ import java.util.concurrent.Executors;
 
 public class Controller {
     // Inputs
-    @FXML public TextField intervalsQuantity, threadsQuantity;
+    @FXML public TextField intervalsQuantity, threadsQuantity, poolSize;
     // Outputs
     @FXML private TextFlow outputText;
+    // Button
+    @FXML public RadioButton syncToggle;
 
     private double sum;
     private int finished;
@@ -26,12 +29,13 @@ public class Controller {
 
         int n = Integer.parseInt(intervalsQuantity.getText());
         int threads = Integer.parseInt((threadsQuantity.getText()));
+        int pools = Integer.parseInt((poolSize.getText()));
 
         System.out.println("=== New calculation ===");
 
         long startTime = System.currentTimeMillis();
 
-        try (ExecutorService executor = Executors.newFixedThreadPool(threads)) {
+        try (ExecutorService executor = Executors.newFixedThreadPool(pools)) {
             double delta = (b - a) / threads;
             for(int i = 0; i < threads; i++){
                 double ai = a + i * delta;
@@ -70,10 +74,19 @@ public class Controller {
         notifyAll();
     }
 
+    public void synchronizeSizes() {
+        if (syncToggle.isSelected()) {
+            poolSize.setText(threadsQuantity.getText());
+            poolSize.setDisable(true);
+        } else {
+            poolSize.setDisable(false);
+        }
+    }
+
     public void printResult(long time){
         outputText.getChildren().clear();
-        outputText.getChildren().addAll(new Text("Кількість: інтервалів = " + intervalsQuantity.getText() + "; потоків = " +
-                        threadsQuantity.getText() + "\n"),
-                new Text("\tРезультат розрахунків: " + String.format("%.6f", sum) + "\n" + "\tЧас виконання розрахунків: " + time + "ms\n"));
+        outputText.getChildren().addAll(new Text("Кількість: інтервалів = " + intervalsQuantity.getText() + ";\nПотоків = " +
+                        threadsQuantity.getText() + ";\nРозмір пула = " + poolSize.getText()),
+                new Text(";\n\tРезультат розрахунків: " + String.format("%.6f", sum) + "\n" + "\tЧас виконання розрахунків: " + time + "ms\n"));
     }
 }
